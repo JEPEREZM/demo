@@ -26,6 +26,10 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+tasks.named("sonarqube").configure {
+	dependsOn(test)
+}
+
 //sonarqube {
 //	properties {
 //		property "sonar.projectKey", "walgomwizeline_JunitDemo"
@@ -34,12 +38,6 @@ tasks.named('test') {
 //	}
 //}
 
-jacocoTestReport {
-	reports{
-		xml.enabled true
-	}
-
-}
 sonarqube {
 	properties {
 		property "sonar.projectKey", "JEPEREZM_demo"
@@ -47,3 +45,11 @@ sonarqube {
 		property "sonar.host.url", "https://sonarcloud.io"
 	}
 }
+
+jacocoTestReport {
+	reports {
+		xml.enabled true
+	}
+}
+
+test.finalizedBy(jacocoTestReport)
